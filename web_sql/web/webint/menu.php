@@ -1,13 +1,5 @@
 <?PHP
 
-function displayLogin() {
-header("WWW-Authenticate: Basic realm=\"Viking Management Platform\"");
-header("HTTP/1.0 401 Unauthorized");
-echo "<h2>Authentication Failure</h2>";
-echo "La contraseña que ha introducido no es válida. Refresque la página e inténtelo de nuevo.";
-exit;
-}
-
 require "conexion.inc";
 require "checklogin.inc";
 
@@ -125,52 +117,52 @@ require "checklogin.inc";
 
 				<tr onMouseOver="this.className='highlight'" onMouseOut="this.className='normal'" onClick="document.getElementById('cust').click()">
                          <td nowrap="nowrap">
-                              <a id=myaccount href="cust.php" target="Frame3">Clientes</a>
+                              <a id=myaccount href="cust.php" target="Frame3">Customers</a>
                          </td>
                     </tr>
 
 				<tr onMouseOver="this.className='highlight'" onMouseOut="this.className='normal'" onClick="document.getElementById('prov').click()">
                          <td nowrap="nowrap">
-                              <a id=myaccount href="prov.php" target="Frame3">Proveedores</a>
+                              <a id=myaccount href="prov.php" target="Frame3">Providers</a>
                          </td>
                     </tr>
 <tr><td><hr></td></tr>
 				<tr onMouseOver="this.className='highlight'" onMouseOut="this.className='normal'" onClick="document.getElementById('newrate').click()">
                          <td nowrap="nowrap">
-                              <a id=newrate href="create_ratetable.php" target="Frame3">Crear Tabla de Precios de Venta</a>
+                              <a id=newrate href="create_ratetable.php" target="Frame3">Create rate table</a>
                          </td>
                     </tr>
 				<tr onMouseOver="this.className='highlight'" onMouseOut="this.className='normal'" onClick="document.getElementById('newcost').click()">
                          <td nowrap="nowrap">
-                              <a id=newrate href="rateupload.php" target="Frame3">Importar Tabla Precios/Rutas</a>
+                              <a id=newrate href="rateupload.php" target="Frame3">Import rate/route table</a>
                          </td>
                     </tr>
 <tr><td><hr></td></tr>
 				<tr onMouseOver="this.className='highlight'" onMouseOut="this.className='normal'" onClick="document.getElementById('newcost').click()">
                          <td nowrap="nowrap">
-                              <a id=newrate href="create_costtable.php" target="Frame3">Crear Tabla de Coste</a>
+                              <a id=newrate href="create_costtable.php" target="Frame3">Create cost table</a>
                          </td>
                     </tr>
 
 				<tr onMouseOver="this.className='highlight'" onMouseOut="this.className='normal'" onClick="document.getElementById('newcost').click()">
                          <td nowrap="nowrap">
-                              <a id=newrate href="costupload.php" target="Frame3">Importar Tabla Costes</a>
+                              <a id=newrate href="costupload.php" target="Frame3">Import cost table</a>
                          </td>
                     </tr>
 <tr><td><hr></td></tr>
 				<tr onMouseOver="this.className='highlight'" onMouseOut="this.className='normal'" onClick="document.getElementById('routes').click()">
                          <td nowrap="nowrap">
-                              <a id=routes href="routes.php" target="Frame3">Tabla de rutas</a>
+                              <a id=routes href="routes.php" target="Frame3">Route table</a>
                          </td>
                     </tr>
 				<tr onMouseOver="this.className='highlight'" onMouseOut="this.className='normal'" onClick="document.getElementById('trace').click()">
                          <td nowrap="nowrap">
-                              <a id=routes href="sip_trace.php" target="Frame3">Trazas SIP</a>
+                              <a id=routes href="sip_trace.php" target="Frame3">SIP Traces</a>
                          </td>
                     </tr>
 		<tr onMouseOver="this.className='highlight'" onMouseOut="this.className='normal'" onClick="document.getElementById('calls').click()">
                          <td nowrap="nowrap">
-                              <a id=routes href="online_calls.php" target="Frame3">Llamadas actuales</a>
+                              <a id=routes href="online_calls.php" target="Frame3">Current Calls</a>
                          </td>
                     </tr>
 
@@ -188,7 +180,7 @@ require "checklogin.inc";
 		</tr>
 		<tr onClick="javascript:hideall(); hide('reporting');" >
 		     <td bgcolor="#33CC00">
-			    <font face="Verdana" color="black" size="4">Reportes</font>
+			    <font face="Verdana" color="black" size="4">Reporting</font>
 			</td>
 		</tr>
 		<tr>
@@ -202,19 +194,19 @@ require "checklogin.inc";
 
 				<tr style="display: none;" onMouseOver="this.className='highlight'" onMouseOut="this.className='normal'" onClick="document.getElementById('outgoing_view').click()">
                          <td nowrap="nowrap">
-                              <a id=customer_report href="customer_report.php" target="Frame3">Por Cliente</a>
+                              <a id=customer_report href="customer_report.php" target="Frame3">By Customer</a>
                          </td>
                     </tr>
 
 				<tr style="display: none;" onMouseOver="this.className='highlight'" onMouseOut="this.className='normal'" onClick="document.getElementById('outgoing_view').click()">
                          <td nowrap="nowrap">
-                              <a id=provider_report href="provider_report.php" target="Frame3">Por Proveedor</a>
+                              <a id=provider_report href="provider_report.php" target="Frame3">By Provider</a>
                          </td>
                     </tr>
 
 				<tr style="display: none;" onMouseOver="this.className='highlight'" onMouseOut="this.className='normal'" onClick="document.getElementById('outgoing_view').click()">
                          <td nowrap="nowrap">
-                              <a id=financial_report href="financial_report.php" target="Frame3">Ventas vs. Costes</a>
+                              <a id=financial_report href="financial_report.php" target="Frame3">Sale vs Cost</a>
                          </td>
                     </tr>
 
@@ -240,7 +232,7 @@ require "checklogin.inc";
 		</tr>
 		<tr onClick="javascript:hideall(); hide('other');" >
 		     <td bgcolor="#33CC00">
-			    <font face="Verdana" color="black" size="4">Otros</font>
+			    <font face="Verdana" color="black" size="4">Others</font>
 			</td>
 		</tr>
 		<tr>
@@ -254,20 +246,20 @@ require "checklogin.inc";
 
 				<tr style="display: none;" onMouseOver="this.className='highlight'" onMouseOut="this.className='normal'" onClick="document.getElementById('outgoing_view').click()">
                          <td nowrap="nowrap">
-                              <a id=users href="users.php" target="Frame3">Cuentas de usuarios</a>
+                              <a id=users href="users.php" target="Frame3">User Management</a>
                          </td>
                     </tr>
 
 				<tr style="display: none;" onMouseOver="this.className='highlight'" onMouseOut="this.className='normal'" onClick="document.getElementById('cdrexport').click()">
                          <td nowrap="nowrap">
-                              <a id=users href="cdrexport.php" target="Frame3">Exportar CDRs</a>
+                              <a id=users href="cdrexport.php" target="Frame3">CDR Export</a>
                          </td>
                     </tr>
 
 
 				<tr style="display: none;" onMouseOver="this.className='highlight'" onMouseOut="this.className='normal'" onClick="document.getElementById('outgoing_view').click()">
                          <td nowrap="nowrap">
-                              <a id=users href="settings.php" target="Frame3">Configuración General</a>
+                              <a id=users href="settings.php" target="Frame3">General Configuration</a>
                          </td>
                     </tr>
 

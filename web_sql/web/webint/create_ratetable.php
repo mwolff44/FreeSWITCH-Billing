@@ -1,12 +1,5 @@
 <?PHP
 
-function displayLogin() {
-header("WWW-Authenticate: Basic realm=\"Viking Management Platform\"");
-header("HTTP/1.0 401 Unauthorized");
-echo "<h2>Authentication Failure</h2>";
-echo "La contraseña que ha introducido no es válida. Refresque la página e inténtelo de nuevo.";
-exit;
-}
 
 require "conexion.inc";
 require "checklogin.inc";
@@ -18,7 +11,7 @@ require "checklogin.inc";
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-15">
-	<title>ws_providers</title>
+	<title>Create new rate table</title>
 	<link rel="stylesheet" href="pages_style.css">
 </head>
 <script language="javascript">

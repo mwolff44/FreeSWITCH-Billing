@@ -1,13 +1,5 @@
 <?PHP
 
-function displayLogin() {
-header("WWW-Authenticate: Basic realm=\"Viking Management Platform\"");
-header("HTTP/1.0 401 Unauthorized");
-echo "<h2>Authentication Failure</h2>";
-echo "La contraseña que ha introducido no es válida. Refresque la página e inténtelo de nuevo.";
-exit;
-}
-
 require "conexion.inc";
 require "checklogin.inc";
 
@@ -22,7 +14,7 @@ require "checklogin.inc";
 	<link rel="stylesheet" href="pages_style.css">
 </head>
 <body>
-<h3>Tablas de coste</h3>
+<h3>Cost Table</h3>
 <?php
 
 /*
@@ -160,7 +152,7 @@ $opts['fdd']['description'] = array(
   'sort'     => true
 );
 $opts['fdd']['cost'] = array(
-  'name'     => 'Coste',
+  'name'     => 'Cost',
   'select'   => 'T',
   'maxlen'   => 13,
   'sort'     => true

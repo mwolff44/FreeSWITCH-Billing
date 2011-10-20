@@ -1,12 +1,5 @@
 <?PHP
 
-function displayLogin() {
-header("WWW-Authenticate: Basic realm=\"Viking Management Platform\"");
-header("HTTP/1.0 401 Unauthorized");
-echo "<h2>Authentication Failure</h2>";
-echo "La contraseña que ha introducido no es válida. Refresque la página e inténtelo de nuevo.";
-exit;
-}
 
 require "conexion.inc";
 require "checklogin.inc";
@@ -18,7 +11,7 @@ require "checklogin.inc";
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-15">
-	<title>Reporte por cliente</title>
+	<title>Customer Report</title>
 	<link rel="stylesheet" href="pages_style.css">
 </head>
 <script language="javascript">
@@ -43,7 +36,7 @@ require "checklogin.inc";
 ***********************************************/
 </script>
 <body>
-<h3>Reporte por cliente</h3>
+<h3>Customer Report</h3>
 <form action="customer_report.php" method="post">
 <?
      if(!isset($_POST['customer'])){
@@ -71,7 +64,7 @@ require "checklogin.inc";
      </tr>
      <tr>
           <td>
-               Fechas Desde:
+               Date from:
           </td>
           <td>
                <script>
@@ -81,7 +74,7 @@ require "checklogin.inc";
      </tr>
      <tr>
           <td>
-               Fechas Hasta:
+               Date to:
           </td>
           <td>
                <script>
@@ -91,7 +84,7 @@ require "checklogin.inc";
      </tr>
      <tr>
           <td>
-               <input type="submit" value="Ejecutar">
+               <input type="submit" value="Go">
           </td>
           <td>
           </td>
@@ -106,14 +99,14 @@ require "checklogin.inc";
 
           echo "<table witdh='600px' cellspacing='0' cellpadding='0'>\n";
           echo "<tr bgcolor='green'>\n"; 
-          echo "     <th width='200px' align='left' >Cliente</th>\n";
-          echo "     <th width='100px' align='left' >Prefijo</th>\n";
-          echo "     <th width='200px' align='left' >Descripción</th>\n";
-          echo "     <th width='100px' align='right'>Tarifa</th>\n";
-          echo "     <th width='200px' align='right' >GW Utilizado</th>\n";
-          echo "     <th width='100px' align='right'>Minutos</th>\n";
-          echo "     <th width='200px' align='right'>Venta</th>\n";
-          echo "     <th width='200px' align='right'>Coste</th>\n";
+          echo "     <th width='200px' align='left' >Customer</th>\n";
+          echo "     <th width='100px' align='left' >Areacode</th>\n";
+          echo "     <th width='200px' align='left' >Description</th>\n";
+          echo "     <th width='100px' align='right'>Rate</th>\n";
+          echo "     <th width='200px' align='right'>GW used</th>\n";
+          echo "     <th width='100px' align='right'>Minutes</th>\n";
+          echo "     <th width='200px' align='right'>Sale</th>\n";
+          echo "     <th width='200px' align='right'>Cost</th>\n";
           echo "</tr>\n"; 
           while($linea=mysql_fetch_row($resultado)){
                echo "<tr bgcolor='white' style=\"color:black\">\n"; 

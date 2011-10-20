@@ -1,12 +1,5 @@
 <?PHP
 
-function displayLogin() {
-header("WWW-Authenticate: Basic realm=\"Viking Management Platform\"");
-header("HTTP/1.0 401 Unauthorized");
-echo "<h2>Authentication Failure</h2>";
-echo "La contraseña que ha introducido no es válida. Refresque la página e inténtelo de nuevo.";
-exit;
-}
 
 require "conexion.inc";
 require "checklogin.inc";
@@ -18,7 +11,7 @@ require "checklogin.inc";
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-15">
-	<title>Reporte por cliente</title>
+	<title>Customer ASR</title>
 	<link rel="stylesheet" href="pages_style.css">
 </head>
 <script language="javascript">
@@ -43,7 +36,7 @@ require "checklogin.inc";
 ***********************************************/
 </script>
 <body>
-<h3>Reporte por cliente</h3>
+<h3>Customer ASR</h3>
 <form action="custom_asr.php" method="post">
 <?
      if(!isset($_POST['customer'])){
@@ -51,7 +44,7 @@ require "checklogin.inc";
 <table width=400px>
      <tr>
           <td>
-               Cliente:
+               Customer:
           </td>
           <td>
                <select id=customer name=customer>
@@ -71,7 +64,7 @@ require "checklogin.inc";
      </tr>
      <tr>
           <td nowrap>
-               Fechas Desde:
+               Date from:
           </td>
           <td nowrap>
                <script>
@@ -79,7 +72,7 @@ require "checklogin.inc";
                </script>
           </td>
           <td nowrap>
-               Hora Desde: 
+               Time from: 
                <select name="hour_from" id="hour_from">
                     <option>00</option>
                     <option>01</option>
@@ -110,7 +103,7 @@ require "checklogin.inc";
      </tr>
      <tr>
           <td nowrap>
-               Fechas Hasta:
+               Date to:
           </td>
           <td nowrap>
                <script>
@@ -118,7 +111,7 @@ require "checklogin.inc";
                </script>
           </td>
           <td nowrap>
-               Hora Hasta: 
+               Time to: 
                <select name="hour_to" id="hour_to">
                     <option>00</option>
                     <option>01</option>
@@ -149,7 +142,7 @@ require "checklogin.inc";
      </tr>
      <tr>
           <td>
-               <input type="submit" value="Ejecutar">
+               <input type="submit" value="Go">
           </td>
           <td>
           </td>
@@ -175,17 +168,17 @@ require "checklogin.inc";
           #echo "SQL: $sql\n<br>";
           echo "<table witdh='600px' cellspacing='0' cellpadding='0'>\n";
           echo "<tr bgcolor='green'>\n"; 
-          echo "     <th width='200px' align='left' >Cliente</th>\n";
-          echo "     <th width='100px' align='left' >Prefijo</th>\n";
-          echo "     <th width='200px' align='left' >Descripción</th>\n";
-          echo "     <th width='100px' align='right'>Tarifa</th>\n";
-          echo "     <th width='200px' align='right' >GW Utilizado</th>\n";
-          echo "     <th width='100px' align='right'>Minutos</th>\n";
-          echo "     <th width='200px' align='right'>Venta</th>\n";
-          echo "     <th width='200px' align='right'>Coste</th>\n";
+          echo "     <th width='200px' align='left' >Customer</th>\n";
+          echo "     <th width='100px' align='left' >Areacode</th>\n";
+          echo "     <th width='200px' align='left' >Description</th>\n";
+          echo "     <th width='100px' align='right'>Rate</th>\n";
+          echo "     <th width='200px' align='right' >GW Used</th>\n";
+          echo "     <th width='100px' align='right'>Minutes</th>\n";
+          echo "     <th width='200px' align='right'>Sale</th>\n";
+          echo "     <th width='200px' align='right'>Cost</th>\n";
 
-          echo "     <th width='200px' align='right'>Intentos</th>\n";
-          echo "     <th width='200px' align='right'>Connectadas</th>\n";
+          echo "     <th width='200px' align='right'>Attempts</th>\n";
+          echo "     <th width='200px' align='right'>Connected</th>\n";
           echo "     <th width='200px' align='right'>ASR</th>\n";
           echo "     <th width='200px' align='right'>ACD</th>\n";
 

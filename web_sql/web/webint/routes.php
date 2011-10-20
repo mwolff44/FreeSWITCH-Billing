@@ -1,12 +1,5 @@
 <?PHP
 
-function displayLogin() {
-header("WWW-Authenticate: Basic realm=\"Viking Management Platform\"");
-header("HTTP/1.0 401 Unauthorized");
-echo "<h2>Authentication Failure</h2>";
-echo "La contraseña que ha introducido no es válida. Refresque la página e inténtelo de nuevo.";
-exit;
-}
 
 require "conexion.inc";
 require "checklogin.inc";
@@ -18,11 +11,11 @@ require "checklogin.inc";
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-15">
-	<title>Rutas</title>
+	<title>Routes</title>
 	<link rel="stylesheet" href="pages_style.css">
 </head>
 <body>
-<h3>Rutas</h3><?php
+<h3>Routes</h3><?php
 
 /*
  * IMPORTANT NOTE: This generated file contains only a subset of huge amount
@@ -148,55 +141,55 @@ $opts['fdd']['id'] = array(
   'sort'     => true
 );
 $opts['fdd']['route_name'] = array(
-  'name'     => 'Nombre de la ruta',
+  'name'     => 'Route Name',
   'select'   => 'T',
   'maxlen'   => 45,
   'sort'     => true
 );
 $opts['fdd']['route_gw_1_symbol'] = array(
-  'name'     => 'Ruta 1',    'select'   => 'D',  'maxlen'   => 45,   'sort'     => true,  'values'   => array('table' => 'providers_symbol', 'column' => 'symbol')
+  'name'     => 'Route 1',    'select'   => 'D',  'maxlen'   => 45,   'sort'     => true,  'values'   => array('table' => 'providers_symbol', 'column' => 'symbol')
 );
 $opts['fdd']['route_gw_1_max_chan'] = array(
-  'name'     => 'Ruta 1 Canales',  'select'   => 'T',  'maxlen'   => 11,   'sort'     => true,  'default'  => '0'
+  'name'     => 'Route 1 channels',  'select'   => 'T',  'maxlen'   => 11,   'sort'     => true,  'default'  => '0'
 );
 $opts['fdd']['route_gw_1_weight'] = array(
-  'name'     => 'Ruta 1 %',    'select'   => 'T',  'maxlen'   => 11,   'sort'     => true,  'values'   => range(0,100),  'default'  => '0'
+  'name'     => 'Route 1 %',    'select'   => 'T',  'maxlen'   => 11,   'sort'     => true,  'values'   => range(0,100),  'default'  => '0'
 );
 $opts['fdd']['route_gw_2_symbol'] = array(
-  'name'     => 'Ruta 2',    'select'   => 'D',  'maxlen'   => 135,  'sort'     => true,  'values'   => array('table' => 'providers_symbol', 'column' => 'symbol')
+  'name'     => 'Route 2',    'select'   => 'D',  'maxlen'   => 135,  'sort'     => true,  'values'   => array('table' => 'providers_symbol', 'column' => 'symbol')
 );
 $opts['fdd']['route_gw_2_max_chan'] = array(
-  'name'     => 'Ruta 2 Canales',  'select'   => 'T',  'maxlen'   => 11,   'sort'     => true,  'default'  => '0'
+  'name'     => 'Route 2 channels',  'select'   => 'T',  'maxlen'   => 11,   'sort'     => true,  'default'  => '0'
 );
 $opts['fdd']['route_gw_2_weight'] = array(
-  'name'     => 'Ruta 2 %',    'select'   => 'T',  'maxlen'   => 11,   'sort'     => true,  'values'   => range(0,100),  'default'  => '0'
+  'name'     => 'Route 2 %',    'select'   => 'T',  'maxlen'   => 11,   'sort'     => true,  'values'   => range(0,100),  'default'  => '0'
 );
 $opts['fdd']['route_gw_3_symbol'] = array(
-  'name'     => 'Ruta 3',    'select'   => 'D',  'maxlen'   => 135,  'sort'     => true,  'values'   => array('table' => 'providers_symbol', 'column' => 'symbol')
+  'name'     => 'Route 3',    'select'   => 'D',  'maxlen'   => 135,  'sort'     => true,  'values'   => array('table' => 'providers_symbol', 'column' => 'symbol')
 );
 $opts['fdd']['route_gw_3_max_chan'] = array(
-  'name'     => 'Ruta 3 Canales',  'select'   => 'T',  'maxlen'   => 11,   'sort'     => true,  'default'  => '0'
+  'name'     => 'Route 3 channels',  'select'   => 'T',  'maxlen'   => 11,   'sort'     => true,  'default'  => '0'
 );
 $opts['fdd']['route_gw_3_weight'] = array(
-  'name'     => 'Ruta 3 %',    'select'   => 'T',  'maxlen'   => 11,   'sort'     => true,  'values'   => range(0,100),  'default'  => '0'
+  'name'     => 'Route 3 %',    'select'   => 'T',  'maxlen'   => 11,   'sort'     => true,  'values'   => range(0,100),  'default'  => '0'
 );
 $opts['fdd']['route_gw_4_symbol'] = array(
-  'name'     => 'Ruta 4',    'select'   => 'D',  'maxlen'   => 135,  'sort'     => true,  'values'   => array('table' => 'providers_symbol', 'column' => 'symbol')
+  'name'     => 'Route 4',    'select'   => 'D',  'maxlen'   => 135,  'sort'     => true,  'values'   => array('table' => 'providers_symbol', 'column' => 'symbol')
 );
 $opts['fdd']['route_gw_4_max_chan'] = array(
-  'name'     => 'Ruta 4 Canales',  'select'   => 'T',  'maxlen'   => 11,   'sort'     => true,  'default'  => '0'
+  'name'     => 'Route 4 channels',  'select'   => 'T',  'maxlen'   => 11,   'sort'     => true,  'default'  => '0'
 );
 $opts['fdd']['route_gw_4_weight'] = array(
-  'name'     => 'Ruta 4 %',    'select'   => 'T',  'maxlen'   => 11,   'sort'     => true,  'values'   => range(0,100),  'default'  => '0'
+  'name'     => 'Route 4 %',    'select'   => 'T',  'maxlen'   => 11,   'sort'     => true,  'values'   => range(0,100),  'default'  => '0'
 );
 $opts['fdd']['route_gw_5_symbol'] = array(
-  'name'     => 'Ruta 5',    'select'   => 'D',  'maxlen'   => 135,  'sort'     => true,  'values'   => array('table' => 'providers_symbol', 'column' => 'symbol')
+  'name'     => 'Route 5',    'select'   => 'D',  'maxlen'   => 135,  'sort'     => true,  'values'   => array('table' => 'providers_symbol', 'column' => 'symbol')
 );
 $opts['fdd']['route_gw_5_max_chan'] = array(
-  'name'     => 'Ruta 5 Canales',  'select'   => 'T',  'maxlen'   => 11,   'sort'     => true,  'default'  => '0'
+  'name'     => 'Route 5 channels',  'select'   => 'T',  'maxlen'   => 11,   'sort'     => true,  'default'  => '0'
 );
 $opts['fdd']['route_gw_5_weight'] = array(
-  'name'     => 'Ruta 5 %',    'select'   => 'T',  'maxlen'   => 11,   'sort'     => true,  'values'   => range(0,100),  'default'  => '0'
+  'name'     => 'Route 5 %',    'select'   => 'T',  'maxlen'   => 11,   'sort'     => true,  'values'   => range(0,100),  'default'  => '0'
 );
 
 // Now important call to phpMyEdit
