@@ -5,7 +5,7 @@ function dbConnect()
      -- connect to db
      require "luasql.mysql"
      env = assert(luasql.mysql())
-     conn = assert(env:connect("viking","viking","V1k1ng","192.168.168.2"))
+     conn = assert(env:connect("viking","username","password","192.168.168.2"))
 
 
      -- Check whether we should log to db
@@ -192,9 +192,9 @@ end
 -----------------------------------------------
 
 function GetGateWay(provider)
-
+          fsLog("GW: ","Searching for gateway" )
           gwok=false
-          --fsLog("SQL: ","select symbol, sip_ip, strip_digits, out_prefix, cost_table, sip_username, sip_pwd from ws_providers where symbol = \'" .. provider .. "\';" )
+          fsLog("SQL: ","select symbol, sip_ip, strip_digits, out_prefix, cost_table, sip_username, sip_pwd from ws_providers where symbol = \'" .. provider .. "\';" )
           cur = assert( 
                conn:execute( "select symbol, sip_ip, strip_digits, out_prefix, cost_table, sip_username, sip_pwd from ws_providers where symbol = '" .. provider .. "';" )
                )
@@ -205,14 +205,13 @@ function GetGateWay(provider)
           --   If null, no customer was found.
           
           if row_gw == nil then
-
-               return
-               
+               fsLog("COULD NOT FIND GATEWAY","")
+               return               
           else
                fsLog("Gateway","OK") 
      
                while row_gw do
-     
+
                     fsLog("gw_symbol",             row_gw.symbol              )
                     fsLog("gw_sip_ip",             row_gw.sip_ip              )
                     fsLog("gw_strip_digits",       row_gw.strip_digits        )

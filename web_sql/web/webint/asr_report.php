@@ -1,5 +1,13 @@
 <?PHP
 
+function displayLogin() {
+header("WWW-Authenticate: Basic realm=\"Viking Management Platform\"");
+header("HTTP/1.0 401 Unauthorized");
+echo "<h2>Authentication Failure</h2>";
+echo "La contraseña que ha introducido no es válida. Refresque la página e inténtelo de nuevo.";
+exit;
+}
+
 require "conexion.inc";
 require "checklogin.inc";
 
@@ -10,7 +18,7 @@ require "checklogin.inc";
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-15">
-	<title>Report by provider</title>
+	<title>Reporte por proveedor</title>
 	<link rel="stylesheet" href="pages_style.css">
 </head>
 <script language="javascript">
@@ -35,7 +43,7 @@ require "checklogin.inc";
 ***********************************************/
 </script>
 <body>
-<h3>Report by provider</h3>
+<h3>Reporte por proveedor</h3>
 <form action="provider_report.php" method="post">
 <table width=400px>
 <?
@@ -62,15 +70,15 @@ require "checklogin.inc";
 
           echo "<table cellspacing='0' cellpadding='0'>\n";
           echo "<tr bgcolor='green'>\n"; 
-          echo "     <th width='200px' align='left' >Customer</th>\n";
-          echo "     <th width='100px' align='left' >Connected</th>\n";
-          echo "     <th width='200px' align='left' >Attempts</th>\n";
-          echo "     <th width='100px' align='right'>Minutes</th>\n";
-          echo "     <th width='100px' align='right'>Sale</th>\n";
-          echo "     <th width='200px' align='right'>Cost</th>\n";
-          echo "     <th width='200px' align='right'>Gross Margin</th>\n";
+          echo "     <th width='200px' align='left' >Cliente</th>\n";
+          echo "     <th width='100px' align='left' >Conectadas</th>\n";
+          echo "     <th width='200px' align='left' >Intentos</th>\n";
+          echo "     <th width='100px' align='right'>Minutos</th>\n";
+          echo "     <th width='100px' align='right'>Venta</th>\n";
+          echo "     <th width='200px' align='right'>Coste</th>\n";
+          echo "     <th width='200px' align='right'>Beneficio</th>\n";
           echo "     <th width='200px' align='right'>ASR</th>\n";
-          echo "     <th width='200px' align='right'>ACD</th>\n";
+          echo "     <th width='200px' align='right'>Dur. Media</th>\n";
           echo "</tr>\n"; 
           while($linea=mysql_fetch_row($resultado)){
                echo "<tr bgcolor='white' style=\"color:black\">\n"; 

@@ -1,5 +1,13 @@
 <?PHP
 
+function displayLogin() {
+header("WWW-Authenticate: Basic realm=\"Viking Management Platform\"");
+header("HTTP/1.0 401 Unauthorized");
+echo "<h2>Authentication Failure</h2>";
+echo "La contraseña que ha introducido no es válida. Refresque la página e inténtelo de nuevo.";
+exit;
+}
+
 require "conexion.inc";
 require "checklogin.inc";
 
@@ -10,11 +18,11 @@ require "checklogin.inc";
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-15">
-	<title>Customers</title>
+	<title>Clientes Wholesale</title>
 	<link rel="stylesheet" href="pages_style.css">
 </head>
 <body>
-<h3>Customers</h3>
+<h3>Clientes Wholesale</h3>
 
 <?php
 
@@ -143,21 +151,21 @@ $opts['fdd']['ws_customer_id'] = array(
   'sort'     => true
 );
 $opts['fdd']['ws_customer_company'] = array(
-  'name'     => 'Company',
+  'name'     => 'Compañía',
   'select'   => 'T',
   'maxlen'   => 135,
   'sort'     => true,
   'required' => true
 );
 $opts['fdd']['ws_customer_symbol'] = array(
-  'name'     => 'Symbol',
+  'name'     => 'Símbolo',
   'select'   => 'T',
   'maxlen'   => 10,
   'sort'     => true,
   'required' => true
 );
 $opts['fdd']['ws_customer_contact_name'] = array(
-  'name'     => 'Contact',
+  'name'     => 'Comercial',
   'select'   => 'T',
   'maxlen'   => 150,
   'sort'     => true
@@ -169,31 +177,31 @@ $opts['fdd']['ws_customer_contact_email'] = array(
   'sort'     => true
 );
 $opts['fdd']['ws_customer_address'] = array(
-  'name'     => 'Address',
+  'name'     => 'Dirección',
   'select'   => 'T',
   'maxlen'   => 450,
   'sort'     => true
 );
 $opts['fdd']['ws_customer_city'] = array(
-  'name'     => 'City',
+  'name'     => 'Ciudad',
   'select'   => 'T',
   'maxlen'   => 135,
   'sort'     => true
 );
 $opts['fdd']['ws_customer_state'] = array(
-  'name'     => 'State',
+  'name'     => 'Provincia',
   'select'   => 'T',
   'maxlen'   => 135,
   'sort'     => true
 );
 $opts['fdd']['ws_customer_country'] = array(
-  'name'     => 'Country',
+  'name'     => 'País',
   'select'   => 'T',
   'maxlen'   => 135,
   'sort'     => true
 );
 $opts['fdd']['ws_customer_phone'] = array(
-  'name'     => 'Phone',
+  'name'     => 'Telf',
   'select'   => 'T',
   'maxlen'   => 135,
   'sort'     => true
@@ -205,7 +213,7 @@ $opts['fdd']['ws_customer_fax'] = array(
   'sort'     => true
 );
 $opts['fdd']['ws_customer_zip'] = array(
-  'name'     => 'ZIP',
+  'name'     => 'CP',
   'select'   => 'T',
   'maxlen'   => 15,
   'sort'     => true
@@ -217,6 +225,12 @@ $opts['fdd']['ws_customer_sig_ip'] = array(
   'sort'     => true,
   'required' => true
 );
+$opts['fdd']['ws_customer_prefix'] = array(
+  'name'     => 'PREFIX',
+  'select'   => 'T',
+  'maxlen'   => 45,
+  'sort'     => true
+);
 $opts['fdd']['ws_customer_context'] = array(
   'name'     => 'Service (local) IP',
   'select'   => 'D',
@@ -227,7 +241,7 @@ $opts['fdd']['ws_customer_context'] = array(
 );
 $opts['fdd']['ws_customer_ratetable'] = array(
   'URL'      => 'viewrates.php?ratetable=$value',
-  'name'     => 'Rate Table',
+  'name'     => 'Tabla de precios',
   'select'   => 'T',
   'maxlen'   => 45,
   'default'  => 'ws_def_rate',
@@ -236,7 +250,7 @@ $opts['fdd']['ws_customer_ratetable'] = array(
   'values'   => array('table' => 'view_rate_tables','column' => 'table_name')
 );
 $opts['fdd']['ws_customer_prepaid'] = array(
-  'name'     => 'Prepaid? (1=yes/0=No)',
+  'name'     => 'Prepago?',
   'select'   => 'N',
   'maxlen'   => 11,
   'default'  => '1',
@@ -253,7 +267,7 @@ $opts['fdd']['ws_customer_balance'] = array(
   'mask'     => '%01.4f'
 );
 $opts['fdd']['ws_customer_enabled'] = array(
-  'name'     => 'Enabled? (1=yes/0=No)',
+  'name'     => 'Habilitado',
   'select'   => 'T',
   'maxlen'   => 11,
   'default'  => '0',
@@ -262,26 +276,26 @@ $opts['fdd']['ws_customer_enabled'] = array(
   'required' => true
 );
 $opts['fdd']['ws_customer_max_calls'] = array(
-  'name'     => 'Channels',
+  'name'     => 'Canales',
   'select'   => 'T',
   'maxlen'   => 11,
   'default'  => '0',
   'sort'     => true
 );
 $opts['fdd']['ws_customer_billing_cycle'] = array(
-  'name'     => 'Billing Cycle',
+  'name'     => 'Ciclo de cobro',
   'select'   => 'T',
   'maxlen'   => 135,
   'sort'     => true
 );
 $opts['fdd']['ws_customer_send_cdr'] = array(
-  'name'     => 'Send CDRs? (1=yes/0=No)',
+  'name'     => 'Enviar CDRs?',
   'select'   => 'T',
   'maxlen'   => 11,
   'sort'     => true
 );
 $opts['fdd']['ws_customer_cdr_email'] = array(
-  'name'     => 'CDR email',
+  'name'     => 'email para CDRs',
   'select'   => 'T',
   'maxlen'   => 300,
   'sort'     => true

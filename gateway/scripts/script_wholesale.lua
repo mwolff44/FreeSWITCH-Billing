@@ -1,13 +1,13 @@
---function myHangupHook(s, status, arg)
+function myHangupHook(s, status, arg)
 --     freeswitch.consoleLog("INFO", "CARD INFO: Call ended! " .. status .. "\n")
---     -- close db_conn and terminate
---     cur:close()
---     conn:close()
---     env:close()
+     -- close db_conn and terminate
+     cur:close()
+     conn:close()
+     env:close()
 --     
 --     fsLog("STATUS: ","I'm still working!")
 --     error()
---end
+end
 --
 ----  Don't terminate the code when hangup
 --session:setHangupHook("myHangupHook", "blah")
@@ -74,7 +74,8 @@ end
 
 if session:ready() then
      -- Set limit and park
-     session:execute("limit","db ${domain} " .. received_ip .." " .. ws_customer_max_calls)
+     -- session:execute("limit","db ${domain} " .. received_ip .." " .. ws_customer_max_calls)
+     -- session:execute("limit","db ${domain} " .. received_ip .." " .. 100)
      
      if ws_customer_prepaid==1 and tonumber(ws_customer_balance)<=0 then
           fsLog("CUSTOMER " .. ws_customer_symbol .. " has no money... rejecting","")
@@ -113,6 +114,9 @@ if session:ready() then
      
      GetRoute(rate_gateway)
      if gwok==false then 
+     	  cur:close()  
+     	  conn:close()  
+     	  env:close()  
           session:hangup("DESTINATION_OUT_OF_ORDER");
           return 
      end  
@@ -148,12 +152,13 @@ if session:ready() then
      --if out_prefix==nil then
      --     out_prefix=""
      --end
-     -- 
-     ----out_number= string.gsub(called_number, "^".. gw_strip_digits, gw_out_prefix)
-     out_number=string.gsub(called_number, "^00" , "")
+     --
+     --fsLog("STRIP DIGITS : ",gw_strip_digits)
+     --fsLog("OUT PREFIX   : ",gw_out_prefix)
      
-     fsLog("OUT NUMBER: ",out_number)
-     fsLog("SIP IP: ",route_name)
+     --out_number=string.gsub(called_number, "^00" , "")
+     --fsLog("OUT NUMBER: ",out_number)
+     --fsLog("SIP IP: ",route_name)
      
      -- SET NIBBLE PER MINUTE RATE && ACCOUNT TO DEDUCT
      --session:execute("set","nibble_rate=" .. rate_rate )
@@ -164,22 +169,71 @@ if session:ready() then
      
       
      session:execute("set","effective_caller_id_number=" .. caller_id)
-     session:execute("set","continue_on_fail=NORMAL_TEMPORARY_FAILURE,TIMEOUT,NO_ROUTE_DESTINATION,UNALLOCATED_NUMBER,407")
+     --session:execute("set","continue_on_fail=NORMAL_TEMPORARY_FAILURE,TIMEOUT,NO_ROUTE_DESTINATION,UNALLOCATED_NUMBER,407")
 
-     --session:execute("set","proxy_media=true")
+--     session:execute("set","proxy_media=true")
      session:execute("set","bypass_media=false")
      
      
      --session:execute("bridge","{sip_auth_username=" .. gw_sip_username .. ",sip_auth_password=" .. gw_sip_pwd .. "}sofia/external/".. out_number .."@".. gw_sip_ip .."")
 
      session:execute("export","nolocal:absolute_codec_string=G729")
-     
-     fsLog("BRIDGE EXECUTE:", "{loop=3}sofia/gateway/${distributor(" .. route_name .. ")}" .. out_number .. "")
-     session:execute("bridge","{loop=3}sofia/gateway/${distributor(" .. route_name .. ")}".. out_number .."")
+     tries=0
+     while session:answered()==false and session:ready()==true do
+          session:execute("set","continue_on_fail=NO_USER_RESPONSE,NORMAL_TEMPORARY_FAILURE,TIMEOUT,NO_ROUTE_DESTINATION,UNALLOCATED_NUMBER,407")
+          
+          out_number=called_number
+          session:execute("set","gw=${distributor(" .. route_name .. ")}")
+          session:execute("set","sip_from_user=" .. caller_id .. "")
+          session:execute("set","sip_auth_username=" .. caller_id .. "")
+          session:execute("set","sip_req_user=" .. caller_id .. "")
+          session:execute("set","effective_caller_id_number=" .. caller_id .. "")
+          gw = GetVar("gw")
+          fsLog("GW VAR:", gw)
+          gw=string.gsub(gw, "/" , "")
+          GetGateWay(gw)
+
+          if gw_strip_digits == nil then
+               gw_strip_digits  = "^"
+          end
+          
+          fsLog("WS CALL STRIP:", gw_strip_digits)
+          fsLog("WS CALL REPLACE:", gw_out_prefix)
+          fsLog("WS CALL CLDNUM", out_number)
+          
+          out_number=string.gsub(out_number, gw_strip_digits , gw_out_prefix, 1)
+          fsLog("WS CALL ", out_number)
+          fsLog("BRIDGE EXECUTE:", "sofia/gateway/" .. gw .. "/" .. out_number .. "")
+          session:execute("bridge","sofia/gateway/" .. gw .. "/" .. out_number .. "")
+freeswitch.consoleLog("info", "ANSWERED: " .. session:answer() .. "\n")          
+          if session:ready()==nil then
+          else
+               if session:ready()==false then
+                    obCause = session:hangupCause()
+                    fsLog("CALL HUNGUP! with: ", obCause )
+                    cur:close()  
+                    conn:close()  
+                    env:close()  
+                    session:hangup();
+               end
+          end
+          
+          tries=tries+1
+          if tries>3 then
+               fsLog("STOPPING")
+               cur:close()  
+               conn:close()  
+               env:close()  
+               session:hangup();
+          end
+     end
      
      -- hangup
+     cur:close()  
+     conn:close()  
+     env:close()  
      session:hangup();
-     
+
      --if session:answered() then 
      --     fsLog("CALL STATUS", "CALL CONNECTED!" )
      --end
@@ -196,4 +250,4 @@ cur:close()
 conn:close()
 env:close()
 
-
+freeswitch.consoleLog("info", "WS CALL -> I am now ending... <-----------\n");

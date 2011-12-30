@@ -1,5 +1,13 @@
 <?PHP
 
+function displayLogin() {
+header("WWW-Authenticate: Basic realm=\"Viking Management Platform\"");
+header("HTTP/1.0 401 Unauthorized");
+echo "<h2>Authentication Failure</h2>";
+echo "La contraseña que ha introducido no es válida. Refresque la página e inténtelo de nuevo.";
+exit;
+}
+
 require "conexion.inc";
 require "checklogin.inc";
 
@@ -10,11 +18,11 @@ require "checklogin.inc";
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-15">
-	<title>User Administration</title>
+	<title>Administración de usuarios</title>
 	<link rel="stylesheet" href="pages_style.css">
 </head>
 <body>
-<h3>User Administration</h3>
+<h3>Administración de usuarios</h3>
 <?php
 
 /*
@@ -142,25 +150,25 @@ $opts['fdd']['id'] = array(
   'sort'     => true
 );
 $opts['fdd']['name'] = array(
-  'name'     => 'First Name',
+  'name'     => 'Nombre',
   'select'   => 'T',
   'maxlen'   => 135,
   'sort'     => true
 );
 $opts['fdd']['lastname'] = array(
-  'name'     => 'Last Name',
+  'name'     => 'Apellido',
   'select'   => 'T',
   'maxlen'   => 135,
   'sort'     => true
 );
 $opts['fdd']['username'] = array(
-  'name'     => 'Username',
+  'name'     => 'Nombre de usuario',
   'select'   => 'T',
   'maxlen'   => 135,
   'sort'     => true
 );
 $opts['fdd']['password'] = array(
-  'name'     => 'Password',
+  'name'     => 'Contraseña',
   'default'    => '',
   'input'      => 'W',
   'maxlen'     => 60,

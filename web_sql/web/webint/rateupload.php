@@ -1,5 +1,12 @@
 <?PHP
 
+function displayLogin() {
+header("WWW-Authenticate: Basic realm=\"Viking Management Platform\"");
+header("HTTP/1.0 401 Unauthorized");
+echo "<h2>Authentication Failure</h2>";
+echo "La contraseña que ha introducido no es válida. Refresque la página e inténtelo de nuevo.";
+exit;
+}
 
 require "conexion.inc";
 require "checklogin.inc";
@@ -11,7 +18,7 @@ require "checklogin.inc";
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-15">
-	<title>Rate/Route Load</title>
+	<title>ws_providers</title>
 	<link rel="stylesheet" href="pages_style.css">
      <script> 
 
@@ -30,7 +37,7 @@ require "checklogin.inc";
      </script>
 </head>
 <body>
-<h3>Load route/rate from file</h3>
+<h3>Crear tabla de Precios/Rutas desde archivo</h3>
      <?php
      
           if( isset($_FILES['uploaded']['name']) ){
@@ -72,7 +79,7 @@ require "checklogin.inc";
                          <input type="radio" id="operation" name="operation" value="create_table" onclick="disable_table_insert()" checked>Crear una tabla nueva
                     </td>
                     <td>
-                         <input type="text" name="table" id="table">(The system will automatically prefix the table with "ws_rate_")
+                         <input type="text" name="table" id="table">(El sistema pondrá el prefijo "ws_rate_" automáticamente)
                     </td>
                </tr>
                <tr>
@@ -106,7 +113,7 @@ require "checklogin.inc";
                </tr>
                <tr>
                     <td>
-                         Select your file
+                         Seleccione el archivo
                     </td>
                     <td>
                           <input name="uploaded" type="file" />

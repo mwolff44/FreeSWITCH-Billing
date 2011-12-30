@@ -1,5 +1,13 @@
 <?PHP
 
+function displayLogin() {
+header("WWW-Authenticate: Basic realm=\"Viking Management Platform\"");
+header("HTTP/1.0 401 Unauthorized");
+echo "<h2>Authentication Failure</h2>";
+echo "La contraseña que ha introducido no es válida. Refresque la página e inténtelo de nuevo.";
+exit;
+}
+
 require "conexion.inc";
 require "checklogin.inc";
 
@@ -10,7 +18,7 @@ require "checklogin.inc";
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-15">
-	<title>Report by provider</title>
+	<title>Reporte por proveedor</title>
 	<link rel="stylesheet" href="pages_style.css">
 </head>
 <script language="javascript">
@@ -35,7 +43,7 @@ require "checklogin.inc";
 ***********************************************/
 </script>
 <body>
-<h3>Report by provider</h3>
+<h3>Reporte por proveedor</h3>
 <form action="provider_report.php" method="post">
 <?
      if(!isset($_POST['provider'])){
@@ -43,7 +51,7 @@ require "checklogin.inc";
 <table width=400px>
      <tr>
           <td>
-               Provider:
+               Proveedor:
           </td>
           <td>
                <select id=provider name=provider>
@@ -63,7 +71,7 @@ require "checklogin.inc";
      </tr>
      <tr>
           <td>
-               Date from:
+               Fechas Desde:
           </td>
           <td>
                <script>
@@ -73,7 +81,7 @@ require "checklogin.inc";
      </tr>
      <tr>
           <td>
-               Date to:
+               Fechas Hasta:
           </td>
           <td>
                <script>
@@ -95,16 +103,16 @@ require "checklogin.inc";
      }else{
 #          echo "I will now execute the report with the following info: " . $_POST['customer'] . ", from " . $_POST['orderdate'] . " to: " . $_POST['orderdate2'] . "<br>";
           $resultado = mysql_query("select gw_symbol, cost_areacode, cost_description, cost_cost, sum(billsec/60) as minutes, sum(call_total_rate) as venta, sum(call_total_cost) as coste from cdr where gw_symbol = '" . $_POST['provider'] . "' and datetime_start between '" . $_POST['orderdate'] . " 00:00:00' and '" . $_POST['orderdate2'] . " 23:59:59' group by gw_symbol, cost_areacode, cost_description, cost_cost order by gw_symbol, cost_areacode, cost_description, cost_cost ;") or die("La consulta ha fallado;: " . mysql_error());
-
+echo "select gw_symbol, cost_areacode, cost_description, cost_cost, sum(billsec/60) as minutes, sum(call_total_rate) as venta, sum(call_total_cost) as coste from cdr where gw_symbol = '" . $_POST['provider'] . "' and datetime_start between '" . $_POST['orderdate'] . " 00:00:00' and '" . $_POST['orderdate2'] . " 23:59:59' group by gw_symbol, cost_areacode, cost_description, cost_cost order by gw_symbol, cost_areacode, cost_description, cost_cost ;";
           echo "<table cellspacing='0' cellpadding='0'>\n";
           echo "<tr bgcolor='green'>\n"; 
           echo "     <th width='200px' align='left' >Gateway</th>\n";
-          echo "     <th width='100px' align='left' >Areacode</th>\n";
-          echo "     <th width='200px' align='left' >Description</th>\n";
-          echo "     <th width='100px' align='right'>Cost</th>\n";
-          echo "     <th width='100px' align='right'>Minutes</th>\n";
-          echo "     <th width='200px' align='right'>Total Sale</th>\n";
-          echo "     <th width='200px' align='right'>Total Cost</th>\n";
+          echo "     <th width='100px' align='left' >Prefijo</th>\n";
+          echo "     <th width='200px' align='left' >Descripción</th>\n";
+          echo "     <th width='100px' align='right'>Coste</th>\n";
+          echo "     <th width='100px' align='right'>Minutos</th>\n";
+          echo "     <th width='200px' align='right'>Total Venta</th>\n";
+          echo "     <th width='200px' align='right'>Total Coste</th>\n";
           echo "</tr>\n"; 
           while($linea=mysql_fetch_row($resultado)){
                echo "<tr bgcolor='white' style=\"color:black\">\n"; 

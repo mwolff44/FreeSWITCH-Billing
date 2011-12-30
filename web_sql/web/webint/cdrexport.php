@@ -1,13 +1,21 @@
 <?PHP
 
+function displayLogin() {
+header("WWW-Authenticate: Basic realm=\"Viking Management Platform\"");
+header("HTTP/1.0 401 Unauthorized");
+echo "<h2>Authentication Failure</h2>";
+echo "La contraseña que ha introducido no es válida. Refresque la página e inténtelo de nuevo.";
+exit;
+}
+
 require "conexion.inc";
 require "checklogin.inc";
 
 ?>
 
-<?                                   
-     if(!isset($_POST['provider'])){ 
-?>                                   
+<?
+     if(!isset($_POST['provider'])){
+?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -57,9 +65,9 @@ require "checklogin.inc";
 
                     $sqldatetime = "select symbol, name from ws_providers union select ws_customer_symbol, ws_customer_company from ws_customers order by name;";
                     $resultado = mysql_query($sqldatetime) or die("La consulta ha fallado;: " . mysql_error());
-                    
+
                     #	GET DATA SO THAT I CAN SHOW %/TOTAL FOR EACH CUSTOMER
-                    while($linea=mysql_fetch_row($resultado)){                    	
+                    while($linea=mysql_fetch_row($resultado)){
                     	echo "<option value='" . $linea[0] . "'>" . $linea[1] . "</option>\n";
                     }
                ?>
@@ -87,6 +95,11 @@ require "checklogin.inc";
           </td>
      </tr>
      <tr>
+          <td colspan=2>
+               <input type="checkbox" checked="false" name=include_no_connect id=include_no_connect>Incluír llamadas NO conectadas?</input>
+          </td>
+     </tr>
+     <tr>
           <td>
                <input type="submit" value="Ejecutar">
           </td>
@@ -103,6 +116,7 @@ require "checklogin.inc";
 
      }else{
 #          echo "I will now execute the report with the following info: " . $_POST['customer'] . ", from " . $_POST['orderdate'] . " to: " . $_POST['orderdate2'] . "<br>";
+          if($_POST['include_no_connect']=="on"){ $include_connect = ""; }else{ $include_connect = "billsec > 0 and "; }
           $sqlquery = "
                                         select 
                                              datetime_start,
@@ -138,15 +152,16 @@ require "checklogin.inc";
                                              hangup_cause_q850, 
                                              call_result 
                                         from viking.cdr 
-                                        where billsec > 0 and
+                                        where $include_connect
                                         (
                                              customer_symbol = '" . $_POST['provider'] . "' or 
                                              gw_symbol = '" . $_POST['provider'] . "'
                                         ) 
                                         and 
                                         datetime_start between '" . $_POST['orderdate'] . " 00:00:00' and '" . $_POST['orderdate2'] . " 23:59:59' 
-                                        order by gw_symbol, cost_areacode, cost_description, cost_cost;
+                                        order by datetime_start;
           ";
+#          echo $sqlquery;
           $resultado = mysql_query($sqlquery) or die("La consulta ha fallado;: " . mysql_error());
 
           $filename = "cdr_" . $_POST['provider'] . "_" . $_POST['orderdate'] . "_" . $_POST['orderdate2'] . ".csv";
