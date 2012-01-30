@@ -16,7 +16,7 @@ end
 --  
 --        INCLUDE FUNCTIONS
 --
-dofile "/usr/local/freeswitch/scripts/functions_wholesale.lua"
+dofile "freeswitch_pathscripts/functions_wholesale.lua"
  
 fs_api = freeswitch.API();
 --

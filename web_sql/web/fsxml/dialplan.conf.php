@@ -56,7 +56,7 @@ echo "
                     <condition field=\"destination_number\" expression=\"^.*\$\">
                          <action application=\"info\"/>
                          <action application=\"set\" data=\"hangup_after_bridge=true\"/>
-                         <action application=\"lua\" data=\"/usr/local/freeswitch/scripts/script_wholesale.lua\"/>
+                         <action application=\"lua\" data=\"freeswitch_pathscripts/script_wholesale.lua\"/>
                     </condition>
                </extension>
           

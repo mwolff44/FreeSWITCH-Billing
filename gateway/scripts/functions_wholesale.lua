@@ -5,7 +5,7 @@ function dbConnect()
      -- connect to db
      require "luasql.mysql"
      env = assert(luasql.mysql())
-     conn = assert(env:connect("viking","username","password","192.168.168.2"))
+     conn = assert(env:connect("viking","viking","V1k1ng","viking_webserver_private_ip"))
 
 
      -- Check whether we should log to db

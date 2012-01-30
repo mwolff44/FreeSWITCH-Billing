@@ -7,7 +7,7 @@
       <!-- one or more |-delim of configuration|directory|dialplan -->
 
 
-      <param name="gateway-url" value="http://$${viking_xml_gateway}/fsxml/gateways.php" bindings="configuration|dialplan"/>
+      <param name="gateway-url" value="http://viking_webserver_private_ip/fsxml/gateways.php" bindings="configuration|dialplan"/>
 
 
       <!-- set this to provide authentication credentials to the server -->
