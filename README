@@ -16,7 +16,7 @@ This is my first ReadME, so please, bear with me!
 - Contact information
 
 ********************************************************************************
-                                   What´s Viking
+                                   Whatï¿½s Viking
 ********************************************************************************
 
 Viking is a frontend to use FreeSWITCH as a VoIP Platform for wholesale aplication
@@ -71,7 +71,7 @@ distributed based on weight. Includes overflow to next configured GW.
 In order to run Viking, you need the following configured and working:
 
 - FreeSWITCH
-- MySQL
+- MySQL - Listen IP must by an internal IP
 - lua and luaSQL
 - Apache2
 - PHP
@@ -119,7 +119,7 @@ FreeSWITCH-Billing
  |        |
  |        |---> scripts
  |
- |---> gateway-scripts
+ |---> gateway-scripts (Scripts to be executed, like current calls, configuration reload, etc)
  |
  |---> web_sql
          |
@@ -131,7 +131,7 @@ FreeSWITCH-Billing
          |      |
          |      |---> cdrpost
          |      
-         |---> sql
+         |---> sql (MySQL database structure)
 
 
 
@@ -192,6 +192,49 @@ web_sql:
                                
      web_sql/sql/             Contains a mysqldump for the complete database used
                               by viking.
+
+variables.conf structure:
+
+# Freeswitch's Public SIP/RTP IP
+viking_public_ip=192.168.1.35
+
+# Freeswitch's private IP, preferably a private IP
+viking_host_private_ip=192.168.1.35
+
+# Freeswitch's console password
+viking_freeswitch_password=M3ll4m0d4v1d
+
+# Webserver for GUI interface which will also hold the database.
+viking_webserver_private_ip=192.168.1.35
+
+# Path to compiled FreeSWITCH
+freeswitch_path=/usr/local/freeswitch/
+
+# Path to webserver's root directory
+webserver_root_path=/var/www/
+
+# Path to maintenance scripts directory (config reload, current calls scripts, tracing)
+scripts_path=/home/david/
+
+
+Installation script:
+
+NOTE: The installation script will ONLY work if the database, Webserver and Freeswitch are in the same directory!! (*)
+
+The script take care of:
+
+- Setting the variables in the scripts, web pages, etc, according to the "variables.conf" file.
+- Creating the database and tables (MySQL)
+- Copying FreeSWITCH's scripts into the correct directory
+- Copying the Webserver pages into the correct directory
+- Copying maintenance scripts into the pecified directory
+- Creating the first default configuration
+     - Create administrator user for the GUI, username: admin, password: admin
+     - Create a basic client record
+
+* If your Database is on a different server, just provide it's internal IP. 
+* For the Webserver you can make a temporary directory and then copy the contents to a different server
+
 
 ********************************************************************************
                               Bugs and Fixes
