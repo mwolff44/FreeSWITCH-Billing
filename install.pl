@@ -123,15 +123,15 @@ system($scripts_copy);
 #    INITIALIZE XML CONFIG FILES
 
 my $tmpcmd = "wget --quiet http://". $viking_webserver_private_ip. "/fsxml/sofia.conf.php --output-document=" .$freeswitch_path. "/conf/autoload_configs/sofia.conf.xml";
-print "SOFIA: $tmpcmd\n";
+print "Creating default Sofia configuration\n";
 system($tmpcmd) == 0 or die "Couldn't get sofia.conf.xml!";
 
 my $tmpcmd = "wget --quiet http://". $viking_webserver_private_ip. "/fsxml/distributor.conf.php --output-document=" .$freeswitch_path. "/conf/autoload_configs/distributor.conf.xml";
-print "DIST: $tmpcmd\n";
+print "Creating default Distributors configuration\n";
 system($tmpcmd) == 0 or die "Couldn't get distributor.conf.xml!";
 
 my $tmpcmd = "wget --quiet http://". $viking_webserver_private_ip. "/fsxml/dialplan.conf.php --output-document=" .$freeswitch_path. "/conf/dialplan/default.conf.xml";
-print "DIALPLAN: $tmpcmd\n";
+print "Creating default Dialplan configuration\n";
 system($tmpcmd) == 0 or die "Couldn't get dialplan.conf.xml!";
 
 
